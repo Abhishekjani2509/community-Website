@@ -27,10 +27,10 @@ import ShopCart from "./pages/shopcart";
 import ShopDetails from "./pages/shopdetails";
 import SignUp from "./pages/signup";
 import Policy from "./pages/policy";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <AuthProvider>
       <div className="App">
         <Router>
           <ScrollToTop />
@@ -71,11 +71,18 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
             <Route path="policy" element={<Policy />} />
           </Routes>
         </Router>
       </div>
-    </AuthProvider>
   );
 }
 

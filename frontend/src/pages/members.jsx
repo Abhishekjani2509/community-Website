@@ -51,7 +51,7 @@ const MembersPage = () => {
                   <div className="default-btn">
                     <span>All Members</span>
                   </div>
-                  <p>20365587</p>
+                  <p>{fetchdata.length}</p>
                 </div>
               </div>
               <div className="member__info--right">

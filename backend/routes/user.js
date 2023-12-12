@@ -45,6 +45,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       req.params.id,
       {
         $set: req.body,
+        profileVerified:false,
       },
       { new: true }
     );
@@ -103,8 +104,8 @@ router.get("/all", async (req, res) => {
   const query = req.query.new;
   try {
     const users = query
-      ? await User.find().sort({ _id: -1 }).limit(5)
-      : await User.find();
+      ? await User.find({profileVerified:true}).sort({ _id: -1 }).limit(5)
+      : await User.find({profileVerified:true});
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);

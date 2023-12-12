@@ -6,7 +6,7 @@ import axios from "axios";
 const title = "Welcome to Ollya";
 
 const LogIn = () => {
-  const {login} = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [userPhone, setUserPhone] = useState("");
   const [userPass, setUserPass] = useState("");
@@ -19,8 +19,42 @@ const LogIn = () => {
     setUserPass(e.target.value);
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:5000/api/auth/login",
+  //       {
+  //         phone: userPhone,
+  //         password: userPass,
+  //       }
+  //     );
+  //     const data = response.data;
+
+  //     if (response.status === 200) {
+  //       // On successful authentication, get the token
+  //       login(data.accessToken);
+  //       // localStorage.setItem("jwtToken", token);
+  //       navigate("/")
+  //       alert("Login Successful")
+  //     } else if (response.status === 401) {
+  //       // Handle authentication error
+  //       console.log(response.message);
+  //       alert("Registration is not approved Wait")
+  //     }else {
+  //       // Handle authentication error
+  //       console.error("Authentication failed");
+  //     }
+  //   } catch (error) {
+  //     // Handle login error
+  //     console.error("Login failed", error.response.data);
+  //     alert(error.response.message)
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -29,27 +63,46 @@ const LogIn = () => {
           password: userPass,
         }
       );
-      const data = response.data;
 
       if (response.status === 200) {
         // On successful authentication, get the token
+        const data = response.data;
         login(data.accessToken);
         // localStorage.setItem("jwtToken", token);
-        navigate("/")
-        alert("Login Successful")
-      } else {
+        navigate("/");
+        alert("Login Successful");
+      } else if (response.status === 401) {
         // Handle authentication error
-        console.error("Authentication failed");
+        const errorMessage = response.data || "Wrong credentials!";
+        console.log(errorMessage);
+        alert(errorMessage);
+      } else {
+        // Handle other status codes
+        console.error("Authentication failed with status:", response.status);
+        alert("Authentication failed");
       }
     } catch (error) {
       // Handle login error
-      console.error("Login failed", error.response.data);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Login failed with status:", error.response.status);
+        alert("Login failed: " + error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No response received");
+        alert("No response received");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error setting up the request", error.message);
+        alert("Error setting up the request");
+      }
     }
   };
 
   return (
     <section className="log-reg">
-            <div className="top-menu-area">
+      <div className="top-menu-area">
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-7">

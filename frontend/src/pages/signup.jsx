@@ -1,12 +1,51 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import SelectMarid from "../component/select/selectmarid";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const [regName, setRegName] = useState("");
-  const [regEmail, setRegEmail] = useState("");
-  const [regPassword, setRegPassword] = useState("");
-  const [regConPassword, setRegConPassword] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    address: "",
+    age: "",
+    residence: "",
+    Dob: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Replace the following URL with your actual API endpoint
+    const apiUrl = "http://localhost:5000/api/auth/register";
+
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the API response, you can redirect or show a success message
+        console.log("Registration successful", data);
+        navigate("/")
+        alert("Registration Done, Login Now")
+
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error submitting registration:", error);
+      });
+  };
 
   const title = "Welcome to Ollya";
   const desc =
@@ -43,16 +82,17 @@ const SignUp = () => {
                 <p>{desc} </p>
               </div>
               <div className="main-content">
-                <form action="#">
+                <form onSubmit={handleFormSubmit}>
                   <h4 className="content-title">{accTitle}</h4>
                   <div className="form-group">
                     <label>Username*</label>
                     <input
                       type="text"
-                      name="name"
+                      name="fullname"
                       id="item01"
-                      placeholder="Enter Your Usewrname *"
+                      placeholder="Enter Your Fullname *"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
@@ -63,6 +103,7 @@ const SignUp = () => {
                       id="item02"
                       placeholder="Enter Your Email *"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
@@ -73,26 +114,29 @@ const SignUp = () => {
                       id="item03"
                       placeholder="Enter Your Password *"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Confirm Password*</label>
                     <input
                       type="password"
-                      name="password"
+                      name="confirmPassword"
                       id="item04"
                       placeholder="Enter Your Confirm Password *"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Phone Number</label>
                     <input
                       type="text"
-                      name="Number"
+                      name="phone"
                       id="item05"
                       placeholder="Enter Your Phone no *"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
@@ -103,21 +147,28 @@ const SignUp = () => {
                       id="item06"
                       placeholder="Enter Your Phone no *"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Age</label>
                     <input
                       type="text"
-                      name="address"
+                      name="age"
                       id="item07"
                       placeholder="Enter Your Age*"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Current Residence</label>
-                    <select className="my-form-control" name="cars" id="cars">
+                    <select
+                      className="my-form-control"
+                      name="residence"
+                      id="residence"
+                      onChange={handleInputChange}
+                    >
                       <option value="none" selected disabled hidden>
                         Select an Option
                       </option>
@@ -129,13 +180,14 @@ const SignUp = () => {
                     <label>Date of Birth</label>
                     <input
                       type="date"
-                      name="date"
+                      name="Dob"
                       id="item09"
                       placeholder="Enter Your Date of Birth*"
                       className="my-form-control"
+                      onChange={handleInputChange}
                     />
                   </div>
-                  <button className="default-btn reverse">
+                  <button type="submit" className="default-btn reverse">
                     <span>Create Your Profile</span>
                   </button>
                 </form>

@@ -15,6 +15,7 @@ router.post("/register", async (req, res) => {
       fullname: req.body.fullname,
       phone: req.body.phone,
       address: req.body.address,
+      residence: req.body.residence,
       email: req.body.email,
       password: hashedPassword,
       age: req.body.age,
@@ -42,6 +43,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ phone: req.body.phone });
+
     if (!user) {
       return res.status(401).json("Wrong credentials!");
     }
@@ -50,14 +52,19 @@ router.post("/login", async (req, res) => {
       req.body.password,
       user.password
     );
+
     if (!validPassword) {
       return res.status(401).json("Wrong credentials!");
+    }
+    if (!user.registerVerified) {
+      console.log("Registration not approved. Please wait.");
+      return res.status(401).json("Registration is not approved. Please wait.");
     }
 
     const accessToken = jwt.sign(
       {
         id: user._id,
-        isAdmin: user.isAdmin,
+        // isAdmin: user.isAdmin,
       },
       process.env.JWT_SEC,
       { expiresIn: "3d" }
@@ -68,15 +75,15 @@ router.post("/login", async (req, res) => {
     // Set the access token as a cookie in the response
     res.cookie("access_token", accessToken, {
       httpOnly: true, // Makes the cookie accessible only through HTTP
-      secure: true, // Set this to true if you are using HTTPS
+      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
       sameSite: "strict", // Set the appropriate value based on your needs
       expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days expiration
     });
 
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json("Internal Server Error");
   }
 });
-
 module.exports = router;

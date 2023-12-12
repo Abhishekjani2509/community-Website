@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink, Navigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
 const HeaderOne = () => {
+  const navigate = useNavigate();
   const { token } = useAuth();
   const { logout } = useAuth();
   const handleLogout = () => {
     logout();
-    <Navigate to="/" />;
+    navigate('/');
     alert("Logout Successful");
   };
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
@@ -36,7 +37,7 @@ const HeaderOne = () => {
         <div className="container">
           <nav className="navbar navbar-expand-lg">
             <Link className="navbar-brand" to="/">
-              <img src="assets/images/logo/logo.png" alt="logo" />
+              <img src="../assets/images/logo/logo.png" alt="logo" />
             </Link>
             <button
               className="navbar-toggler collapsed"
@@ -98,7 +99,7 @@ const HeaderOne = () => {
                   {token ? (
                     <>
                       <li>
-                        <NavLink className="dropdown-item" to="/members">
+                        <NavLink className="dropdown-item" to="/profile">
                           Your Profile
                         </NavLink>
                       </li>
