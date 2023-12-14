@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const nodemailer = require('nodemailer');
 
 const {
   verifyToken,
@@ -159,6 +160,17 @@ router.get("/admin",verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/rejected",verifyTokenAndAdmin, async (req, res) => {
+  const query = req.query.new;
+  try {
+    const users = query
+      ? await User.find({isRejected: true })
+      : await User.find({isRejected: true });
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 router.get("/registerReq",verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
   try {
@@ -197,6 +209,10 @@ router.put("/admin/:id",verifyTokenAndAdmin, async (req, res) => {
       },
       { new: true }
     );
+    const phone = updatedUser.phone;
+    const message = req.body.message;
+    const mail = updatedUser.email;
+    sendEmail(phone, message,mail)
 
     res.status(200).json(updatedUser);
   } catch (err) {
@@ -204,15 +220,36 @@ router.put("/admin/:id",verifyTokenAndAdmin, async (req, res) => {
   }
 });
 // Rejected Users
-router.get("/rejected",verifyTokenAndAdmin, async (req, res) => {
-  const query = req.query.new;
-  try {
-    const users = query
-      ? await User.find({isRejected: true })
-      : await User.find({isRejected: true });
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
+
+
+// Node Mailer
+
+function sendEmail(phone, message,mail) {
+  // Configure nodemailer to use your email service
+  let Transport = nodemailer.createTransport({
+    service: "GMAIL",
+    auth: {
+      user: "tt7302398@gmail.com",
+      pass: "qjwstretxhocnoap"
+    }, debug:true,
+  })
+
+  // Email content
+  const mailOptions = {
+    from: 'tt7302398@gmail.com',
+    to: "modhmonark@gmail.com",
+    subject: 'Account Update',
+    text: message,
+  };
+
+  // Send email
+  Transport.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+}
 module.exports = router;

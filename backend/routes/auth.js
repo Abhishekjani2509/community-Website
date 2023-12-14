@@ -33,8 +33,6 @@ router.post("/register", async (req, res) => {
 
 router.post("/admin-login", async (req, res) => {
   try {
-    console.log(req.body.phone)
-    console.log(req.body.password)
     const user = await User.findOne({ phone: req.body.phone, isAdmin: true });
     if (!user) {
       return res.status(401).json("Wrong credentials!");

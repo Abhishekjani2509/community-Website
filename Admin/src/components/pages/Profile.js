@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
-const Register = () => {
+const Profile = () => {
   const { token } = useAuth();
-  // console.log(token);
+  // console.log(token)
   const [users, setUsers] = useState([]);
-  const apiUrl = "http://localhost:5000/api/users/registerReq";
-
+  const apiUrl = "http://localhost:5000/api/users/profileReq";
   useEffect(() => {
     loadUsers();
   }, [apiUrl]);
@@ -17,12 +15,12 @@ const Register = () => {
     try {
       const result = await axios.get(apiUrl, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
         },
       });
       const data = result.data;
       setUsers(data);
+      // console.log(data);
     } catch (error) {
       console.error("Error loading users:", error);
     }
@@ -30,12 +28,11 @@ const Register = () => {
 
   const updateUser = async (id) => {
     try {
-      // Uncomment the following lines if you want to delete a user
       await axios.put(
         `http://localhost:5000/api/users/admin/${id}`,
         {
-          registerVerified: true,
-          message: "Your Profile has been Registered",
+          profileVerified: true,
+          message: "Your Profile has been verified",
         },
         {
           headers: {
@@ -44,40 +41,52 @@ const Register = () => {
         }
       );
       loadUsers();
+      alert("User Verified")
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error Updating user:", error);
     }
   };
-  const deleteUser = async (id) => {
+  const rejectUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
+      await axios.put(
+        `http://localhost:5000/api/users/admin/${id}`,
+        {
+          isRejected: true,
+          message: "Your Profile Details have been rejected, Update Your details for approval",
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
+          },
+        }
+      );
+      alert("User Rejected")
       loadUsers();
     } catch (error) {
       console.error("Error deleting user:", error);
     }
   };
-
   return (
-    <div className="container">
+    <div className="">
       <div className="py-4">
-        <h1>Register Requested Users Page</h1>
+        <h1>Profile Requested Users Page</h1>
         <table className="table border shadow">
           <thead className="thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
+              <th scope="col">Name</th>
               <th scope="col">Phone</th>
-              <th scope="col">Address</th>
-              <th scope="col">Age</th>
-              <th scope="col">Current Residence</th>
-              <th scope="col">Date of Birth</th>
-              <th>Approve Request</th>
-              <th>Delete Request</th>
+              <th scope="col">Father Name</th>
+              <th scope="col">Mother Name</th>
+              <th scope="col">Height</th>
+              <th scope="col">Education</th>
+              <th scope="col">Job details</th>
+              <th scope="col">numberOfBrothers</th>
+              <th scope="col">numberOfSisters</th>
+              <th scope="col">maritalStatus</th>
+              <th scope="col">description</th>
+              <th>Action</th>
+              <th>Reject</th>
             </tr>
           </thead>
           <tbody>
@@ -85,13 +94,16 @@ const Register = () => {
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{user.fullname}</td>
-                <td>{user.email}</td>
                 <td>{user.phone}</td>
-                <td>{user.address}</td>
-                <td>{user.age}</td>
-                <td>{user.residence}</td>
-                <td>{user.Dob}</td>
-                {/* <td>{user.id}</td> */}
+                <td>{user.fatherName}</td>
+                <td>{user.motherName}</td>
+                <td>{user.height}</td>
+                <td>{user.education}</td>
+                <td>{user.jobDetails}</td>
+                <td>{user.numberOfBrothers}</td>
+                <td>{user.numberOfSisters}</td>
+                <td>{user.maritalStatus}</td>
+                <td>{user.description}</td>
                 <td>
                   <button
                     className="btn btn-primary"
@@ -103,9 +115,9 @@ const Register = () => {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => deleteUser(user._id)}
+                    onClick={() => rejectUser(user._id)}
                   >
-                    Delete
+                    Reject
                   </button>
                 </td>
               </tr>
@@ -117,4 +129,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Profile;

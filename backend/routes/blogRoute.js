@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Blog = require("../models/blog");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyTokens");
 
 // Create a new blog
-router.post("/create", async (req, res) => {
+router.post("/create",verifyTokenAndAdmin, async (req, res) => {
   try {
     const blog = await Blog.create(req.body);
     res.status(201).json(blog);
@@ -23,7 +28,7 @@ router.get("/all", async (req, res) => {
 });
 
 // Get a specific blog by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id",verifyTokenAndAdmin, async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
     res.status(200).json(blog);
@@ -33,7 +38,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a blog by ID
-router.put("/:id", async (req, res) => {
+router.put("/:id",verifyTokenAndAdmin, async (req, res) => {
   try {
     const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -45,7 +50,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a blog by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",verifyTokenAndAdmin, async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
     res.status(204).send();

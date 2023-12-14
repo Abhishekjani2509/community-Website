@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
-const Home = () => {
+const Register = () => {
   const { token } = useAuth();
+  // console.log(token);
   const [users, setUsers] = useState([]);
-  const apiUrl = "http://localhost:5000/api/users/admin";
+  const apiUrl = "http://localhost:5000/api/users/registerReq";
 
   useEffect(() => {
     loadUsers();
@@ -27,14 +27,35 @@ const Home = () => {
     }
   };
 
+  const updateUser = async (id) => {
+    try {
+      // Uncomment the following lines if you want to delete a user
+      await axios.put(
+        `http://localhost:5000/api/users/admin/${id}`,
+        {
+          registerVerified: true,
+          message: "Your Profile registration has been approved, You can login Now!",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
+          },
+        }
+      );
+      alert("User Registration Approved")
+      loadUsers();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
   const deleteUser = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/users/${id}`, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
         },
       });
+      alert("User Registration Deleted")
       loadUsers();
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -44,7 +65,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="py-4">
-        <h1>All Users</h1>
+        <h1>Register Requested Users Page</h1>
         <table className="table border shadow">
           <thead className="thead-dark">
             <tr>
@@ -56,7 +77,8 @@ const Home = () => {
               <th scope="col">Age</th>
               <th scope="col">Current Residence</th>
               <th scope="col">Date of Birth</th>
-              <th>Action</th>
+              <th>Approve Request</th>
+              <th>Delete Request</th>
             </tr>
           </thead>
           <tbody>
@@ -71,6 +93,14 @@ const Home = () => {
                 <td>{user.residence}</td>
                 <td>{user.Dob}</td>
                 {/* <td>{user.id}</td> */}
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => updateUser(user._id)}
+                  >
+                    Approve
+                  </button>
+                </td>
                 <td>
                   <button
                     className="btn btn-danger"
@@ -88,4 +118,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Register;

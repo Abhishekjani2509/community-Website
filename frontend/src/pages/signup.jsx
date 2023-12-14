@@ -43,7 +43,7 @@ const SignUp = () => {
       })
       .then((data) => {
         // Handle the API response, you can redirect or show a success message
-        console.log(data);
+        // console.log(data);
         navigate("/");
         alert("Registration Done, Login Now");
       })
