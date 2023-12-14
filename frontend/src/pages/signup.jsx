@@ -9,6 +9,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     phone: "",
+    // profileimg: [],
     address: "",
     age: "",
     residence: "",
@@ -33,17 +34,33 @@ const SignUp = () => {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      })
       .then((data) => {
         // Handle the API response, you can redirect or show a success message
-        console.log("Registration successful", data);
-        navigate("/")
-        alert("Registration Done, Login Now")
-
+        console.log(data);
+        navigate("/");
+        alert("Registration Done, Login Now");
       })
       .catch((error) => {
         // Handle errors
-        console.error("Error submitting registration:", error);
+        console.error("Error submitting registration:", error.message);
+
+        // Handle specific status codes
+        if (error.message.includes("400")) {
+          alert("Password and confirm do not match");
+        } else if (error.message.includes("401")) {
+          alert("Unauthorized: Please check your credentials");
+        } else if (error.message.includes("500")) {
+          alert("Internal Server Error: Please try again later");
+        } else {
+          alert("Unknown error occurred");
+        }
       });
   };
 
@@ -104,6 +121,7 @@ const SignUp = () => {
                       placeholder="Enter Your Email *"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      autoComplete="username"                      
                     />
                   </div>
                   <div className="form-group">
@@ -115,6 +133,7 @@ const SignUp = () => {
                       placeholder="Enter Your Password *"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      autoComplete="current-password"
                     />
                   </div>
                   <div className="form-group">
@@ -126,6 +145,7 @@ const SignUp = () => {
                       placeholder="Enter Your Confirm Password *"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      autoComplete="new-password"
                     />
                   </div>
                   <div className="form-group">
@@ -167,9 +187,10 @@ const SignUp = () => {
                       className="my-form-control"
                       name="residence"
                       id="residence"
+                      value={formData.residence}
                       onChange={handleInputChange}
                     >
-                      <option value="none" selected disabled hidden>
+                      <option value="none" disabled hidden>
                         Select an Option
                       </option>
                       <option value="In Palghar">In Palghar</option>
@@ -187,6 +208,44 @@ const SignUp = () => {
                       onChange={handleInputChange}
                     />
                   </div>
+                  {/* <div className="form-group">
+                    <label>Profile Picture</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="profilePicture"
+                      id="item08"
+                      className="my-form-control"
+                      style={{
+                        padding: "10px",
+                        borderRadius: "5px",
+                        border: "1px solid #ccc",
+                        color: "#333",
+                        cursor: "pointer",
+                      }}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Profile Picture</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple="multiple"
+                      name="profilePicture"
+                      id="item10"
+                      className="my-form-control"
+                      style={{
+                        padding: "10px",
+                        borderRadius: "5px",
+                        border: "1px solid #ccc",
+                        color: "#333",
+                        cursor: "pointer",
+                      }}
+                      onChange={handleInputChange}
+                    />
+                  </div> */}
+                  
                   <button type="submit" className="default-btn reverse">
                     <span>Create Your Profile</span>
                   </button>

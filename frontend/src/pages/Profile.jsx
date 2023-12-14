@@ -15,6 +15,7 @@ const Profile = () => {
     Dob: "",
     fatherName: "",
     motherName: "",
+    profileimg:"",
     height: "",
     education: "",
     jobDetails: "",
@@ -43,6 +44,7 @@ const Profile = () => {
           const userData = await response.json();
           setUserData(userData);
           setUpdateData(userData); // Initialize updateData with current user data
+          // console.log(userData)
         } else {
           const errorData = await response.json();
           console.log(errorData.message || "Failed to fetch user profile");
@@ -94,6 +96,28 @@ const Profile = () => {
       <PageHeader title={"Your Profile"} curPage={"Profile"} />
       <form>
         {/* Base Info */}
+        <div className="col-xl-3 order-xl-0">
+                <div className="group__bottom--center">
+                  <div className="story__item style2">
+                    <div className="story__inner">
+                      <div className="story__thumb position-relative">
+                        <img
+                          src={userData.profileimg}
+                          alt="Profile Img"
+                        />
+                      </div>
+                      <div className="story__content px-0 pb-0">
+                        <h3>{userData.fullname}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+        
         <div className="info-card mb-4">
           <div className="info-card-title">
             <h6>Base Info</h6>

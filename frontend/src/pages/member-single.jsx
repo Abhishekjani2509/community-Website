@@ -177,7 +177,7 @@ const MemberDetails = () => {
                             <p>{memberData.description}</p>
                           </div>
                         </div>
-                        {memberData.isVerified?(
+                        {memberData.profileVerified?(
                           <div className="info-card mb-4">
                           <div className="info-card-title">
                             <h6>Other Information</h6>

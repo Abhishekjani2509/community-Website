@@ -22,8 +22,9 @@ const UserSchema = new mongoose.Schema(
     maritalStatus: { type: String },
     description: { type: String },
     registerVerified: { type: Boolean, default: false },
-    profileVerified: { type: Boolean, default: false },
-    isAdmin: { type: Boolean, default: true },
+    profileVerified: { type: Boolean},
+    isRejected: { type: Boolean, default:false},
+    isAdmin: { type: Boolean,default:false},
   },
   { timestamps: true }
 );

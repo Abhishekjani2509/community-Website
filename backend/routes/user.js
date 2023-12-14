@@ -33,7 +33,7 @@ router.get("/profile", verifyToken, async (req, res) => {
 });
 
 //UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     // Check if a new password is provided
     if (req.body.password) {
@@ -46,6 +46,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       {
         $set: req.body,
         profileVerified:false,
+        isRejected:false,
       },
       { new: true }
     );
@@ -79,7 +80,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 // });
 
 //DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted...");
@@ -89,7 +90,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 //GET USER
-router.get("/find/:id",async (req, res) => {
+router.get("/find/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
@@ -99,44 +100,119 @@ router.get("/find/:id",async (req, res) => {
   }
 });
 
-//GET ALL USER     admin only
+//GET ALL USER    verified
 router.get("/all", async (req, res) => {
   const query = req.query.new;
   try {
     const users = query
-      ? await User.find({profileVerified:true}).sort({ _id: -1 }).limit(5)
-      : await User.find({profileVerified:true});
+      ? await User.find({ profileVerified: true }).sort({ _id: -1 }).limit(5)
+      : await User.find({ profileVerified: true });
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+
 //GET USER STATS
 
-router.get("/stats", async (req, res) => {
-  const date = new Date();
-  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+// router.get("/stats", async (req, res) => {
+//   const date = new Date();
+//   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
 
+//   try {
+//     const data = await User.aggregate([
+//       { $match: { createdAt: { $gte: lastYear } } },
+//       {
+//         $project: {
+//           month: { $month: "$createdAt" },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$month",
+//           total: { $sum: 1 },
+//         },
+//       },
+//     ]);
+//     res.status(200).json(data);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+
+
+
+
+
+
+
+//Admin Routes
+// All uers
+router.get("/admin",verifyTokenAndAdmin, async (req, res) => {
+  const query = req.query.new;
   try {
-    const data = await User.aggregate([
-      { $match: { createdAt: { $gte: lastYear } } },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-        },
-      },
-      {
-        $group: {
-          _id: "$month",
-          total: { $sum: 1 },
-        },
-      },
-    ]);
-    res.status(200).json(data);
+    const users = query ? await User.find({ registerVerified: true }) : await User.find({ registerVerified: true });
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
   }
 });
+router.get("/registerReq",verifyTokenAndAdmin, async (req, res) => {
+  const query = req.query.new;
+  try {
+    const users = query
+      ? await User.find({ registerVerified: false })
+      : await User.find({ registerVerified: false });
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.get("/profileReq",verifyTokenAndAdmin, async (req, res) => {
+  const query = req.query.new;
+  try {
+    const users = query
+      ? await User.find({ profileVerified: false , isRejected: false })
+      : await User.find({ profileVerified: false , isRejected: false });
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.put("/admin/:id",verifyTokenAndAdmin, async (req, res) => {
+  try {
+    console.log(req.body.message)
+    // Check if a new password is provided
+    if (req.body.password) {
+      // Hash the new password using bcrypt
+      req.body.password = await bcrypt.hash(req.body.password, 15); // Adjust the number of rounds (salt) as needed
+    }
 
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+// Rejected Users
+router.get("/rejected",verifyTokenAndAdmin, async (req, res) => {
+  const query = req.query.new;
+  try {
+    const users = query
+      ? await User.find({isRejected: true })
+      : await User.find({isRejected: true });
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
