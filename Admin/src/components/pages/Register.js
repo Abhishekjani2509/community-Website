@@ -34,7 +34,8 @@ const Register = () => {
         `http://localhost:5000/api/users/admin/${id}`,
         {
           registerVerified: true,
-          message: "Your Profile registration has been approved, You can login Now!",
+          message:
+            "Your Profile registration has been approved, You can login Now!",
         },
         {
           headers: {
@@ -42,7 +43,7 @@ const Register = () => {
           },
         }
       );
-      alert("User Registration Approved")
+      alert("User Registration Approved");
       loadUsers();
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -55,7 +56,7 @@ const Register = () => {
           Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
         },
       });
-      alert("User Registration Deleted")
+      alert("User Registration Deleted");
       loadUsers();
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -70,6 +71,7 @@ const Register = () => {
           <thead className="thead-dark">
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Image</th>
               <th scope="col">Username</th>
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
@@ -85,6 +87,13 @@ const Register = () => {
             {users.map((user, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
+                <td>
+                  <img
+                    src={user.profileimg}
+                    alt="Profile Img"
+                    style={{ width: "200px", height: "200px" }}
+                  />
+                </td>
                 <td>{user.fullname}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>

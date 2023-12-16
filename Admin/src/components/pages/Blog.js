@@ -145,7 +145,7 @@ const Blog = () => {
                   <div className="form-group mb-3">
                     <label htmlFor="date">Blog Date</label>
                     <input
-                      type="text"
+                      type="date"
                       name="date"
                       id="date"
                       placeholder="Enter Blog Date *"

@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema(
     password: { type: String, required: true},
     age: { type: Number, required: true },
     Dob: { type: String, required: true },
+    gender: { type: String, required: true },
     profileimg: { type: String },
     images:{type:Array},
     fatherName: { type: String },

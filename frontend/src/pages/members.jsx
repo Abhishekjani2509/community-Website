@@ -1,40 +1,53 @@
+// MembersPage.js
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FooterThree from "../component/layout/footerthree";
-import HeaderTwo from "../component/layout/headertwo";
-import PageHeader from "../component/layout/pageheader";
-import AboutSectionFour from "../component/section/aboutfour";
-import Pagination from "../component/section/pagination";
-import SelectAge from "../component/select/selectage";
-import SelectCountry from "../component/select/selectcountry";
-import SelectGender from "../component/select/selectgender";
-import SelectProduct from "../component/select/selectproduct";
 import HeaderOne from "../component/layout/header";
+import PageHeader from "../component/layout/pageheader";
 
 const MembersPage = () => {
-  let [fetchdata, setfetchData] = useState([]);
-  let [api, setApi] = useState([""]);
-  let { products } = fetchdata;
-  let [type, setType] = useState("");
-  api = `http://localhost:5000/api/users/all`;
+  const [fetchData, setFetchData] = useState([]);
+  const [type, setType] = useState("");
+  const [minAge, setMinAge] = useState("");
+  const [maxAge, setMaxAge] = useState("");
+  const [residence, setResidence] = useState("");
+
+  const api = `http://localhost:5000/api/users/all`;
+
   useEffect(() => {
-    (async function () {
-      let data = await fetch(api).then((res) => res.json());
-      setfetchData(data);
-      console.log(data);
-    })();
-  }, [api]);
+    const fetchData = async () => {
+      // Build the API URL with filter parameters
+      const apiUrl = `${api}?gender=${type}&minAge=${minAge}&maxAge=${maxAge}&residence=${residence}`;
+
+      try {
+        const data = await fetch(apiUrl).then((res) => res.json());
+        setFetchData(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [api, type, minAge, maxAge, residence]);
 
   const modalview = () => {
     document.querySelector(".modal").classList.toggle("show");
     document.querySelector("body").classList.toggle("overlay");
   };
 
+  // Function to clear all filters
+  const clearFilters = () => {
+    setType("");
+    setMinAge("");
+    setMaxAge("");
+    setResidence("");
+  };
+
   return (
     <div>
       <HeaderOne />
       <PageHeader title={"Ollya All Members"} curPage={"All Members"} />
-      {/* <AboutSectionFour /> */}
       <div className="member member--style2 padding-top padding-bottom">
         <div className="container">
           <div className="section__wrapper">
@@ -47,26 +60,28 @@ const MembersPage = () => {
                     </span>
                   </div>
                 </div>
+
                 <div className="member__info--count">
                   <div className="default-btn">
-                    <span>All Members</span>
+                    <span>Total Members</span>
                   </div>
-                  <p>{fetchdata.length}</p>
+                  <p>{fetchData.length}</p>
                 </div>
               </div>
-              <div className="member__info--right">
-                <div className="member__info--customselect right w-100">
-                  <div className="default-btn">
-                    <span>Order By:</span>
-                  </div>
-                  <div className="banner__inputlist">
-                    <SelectProduct select={"Newest"} />
-                  </div>
-                </div>
+              <div className="member__info--clear">
+                {/* Clear Filters button */}
+                <button
+                  type="button"
+                  className="default-btn reverse d-block"
+                  onClick={clearFilters}
+                >
+                  <span>Clear Filters</span>
+                </button>
               </div>
             </div>
+
             <div className="row g-0 justify-content-center mx-12-none">
-              {fetchdata.map((val, i) => (
+              {fetchData.map((val, i) => (
                 <div className="member__item" key={i}>
                   <div className="member__inner">
                     <div className="member__thumb">
@@ -74,7 +89,7 @@ const MembersPage = () => {
                       <span className={val.fullname}></span>
                     </div>
                     <div className="member__content">
-                    <Link to={`/member-single/${val._id}`} key={val._id}>
+                      <Link to={`/member-single/${val._id}`} key={val._id}>
                         <h5>{val.fullname}</h5>
                       </Link>
                       <p>{val.activity}</p>
@@ -85,10 +100,7 @@ const MembersPage = () => {
             </div>
             <div className="member__pagination mt-4">
               <div className="member__pagination--left">
-                <p>Viewing {fetchdata.length} Members</p>
-              </div>
-              <div className="member__pagination--right">
-                <Pagination />
+                <p>Viewing {fetchData.length} Members</p>
               </div>
             </div>
           </div>
@@ -112,42 +124,69 @@ const MembersPage = () => {
                 <div className="banner__list">
                   <div className="row align-items-center row-cols-1">
                     <div className="col">
-                      <label>I am a</label>
-                      <div className="banner__inputlist">
-                        <SelectGender select={"male"} />
-                      </div>
-                    </div>
-                    <div className="col">
                       <label>Looking for</label>
                       <div className="banner__inputlist">
-                        <SelectGender select={"female"} />
+                        <select
+                          className="form-control"
+                          value={type}
+                          onChange={(e) => setType(e.target.value)}
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
                       </div>
                     </div>
                     <div className="col">
-                      <label>Age</label>
+                      <label>Age Range</label>
                       <div className="row g-3">
                         <div className="col-6">
                           <div className="banner__inputlist">
-                            <SelectAge select={"18"} />
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Min Age"
+                              value={minAge}
+                              onChange={(e) => setMinAge(e.target.value)}
+                            />
                           </div>
                         </div>
                         <div className="col-6">
                           <div className="banner__inputlist">
-                            <SelectAge select={"25"} />
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Max Age"
+                              value={maxAge}
+                              onChange={(e) => setMaxAge(e.target.value)}
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="col">
-                      <label>Country</label>
+                      <label>Residence</label>
                       <div className="banner__inputlist">
-                        <SelectCountry select={"Bangladesh"} />
+                        <select
+                          className="form-control"
+                          value={residence}
+                          onChange={(e) => setResidence(e.target.value)}
+                        >
+                          <option value="">Select residence</option>
+                          <option value="In Palghar">
+                            In Palghar Residence
+                          </option>
+                          <option value="Outside Palghar">
+                            Outside Palghar
+                          </option>
+                        </select>
                       </div>
                     </div>
                     <div className="col">
                       <button
-                        type="submit"
+                        type="button"
                         className="default-btn reverse d-block"
+                        onClick={modalview}
                       >
                         <span>Find Your Partner</span>
                       </button>

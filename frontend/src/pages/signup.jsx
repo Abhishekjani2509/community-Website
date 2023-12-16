@@ -9,61 +9,73 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     phone: "",
-    // profileimg: [],
+    gender: "",
     address: "",
     age: "",
     residence: "",
     Dob: "",
   });
 
+  const [profileImg, setProfileImg] = useState(null);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    // If the input is a file input, handle it separately
+    if (name === "profileimg") {
+      handleImageChange(e);
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImg(file);
+  };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Replace the following URL with your actual API endpoint
-    const apiUrl = "http://localhost:5000/api/auth/register";
+    try {
+      const apiUrl = "http://localhost:5000/api/auth/register";
 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-      })
-      .then((data) => {
-        // Handle the API response, you can redirect or show a success message
-        // console.log(data);
+      const formDataWithImage = new FormData();
+
+      // Append the profile image only if it's not null or undefined
+      if (profileImg) {
+        formDataWithImage.append("profileimg", profileImg);
+      }
+
+      // Append other form data to FormData
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataWithImage.append(key, value);
+      });
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        body: formDataWithImage,
+      });
+      
+      // Assuming you still want to log the form data for debugging purposes
+      console.log("FormData with image:", formDataWithImage);
+      
+      
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data)
         navigate("/");
         alert("Registration Done, Login Now");
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error submitting registration:", error.message);
-
-        // Handle specific status codes
-        if (error.message.includes("400")) {
-          alert("Password and confirm do not match");
-        } else if (error.message.includes("401")) {
-          alert("Unauthorized: Please check your credentials");
-        } else if (error.message.includes("500")) {
-          alert("Internal Server Error: Please try again later");
-        } else {
-          alert("Unknown error occurred");
-        }
-      });
+      } else {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error submitting registration:", error.message);
+      // Handle specific status codes or display a general error message
+      alert("Registration failed. Please try again.");
+    }
   };
-
   const title = "Welcome to Ollya";
   const desc =
     "Let's create your profile! Just fill in the fields below, and we’ll get a new account.";
@@ -121,7 +133,7 @@ const SignUp = () => {
                       placeholder="Enter Your Email *"
                       className="my-form-control"
                       onChange={handleInputChange}
-                      autoComplete="username"                      
+                      autoComplete="username"
                     />
                   </div>
                   <div className="form-group">
@@ -165,7 +177,7 @@ const SignUp = () => {
                       type="text"
                       name="address"
                       id="item06"
-                      placeholder="Enter Your Phone no *"
+                      placeholder="Enter Address *"
                       className="my-form-control"
                       onChange={handleInputChange}
                     />
@@ -190,13 +202,31 @@ const SignUp = () => {
                       value={formData.residence}
                       onChange={handleInputChange}
                     >
-                      <option value="none" disabled hidden>
-                        Select an Option
+                      <option value="" disabled>
+                        Select
                       </option>
                       <option value="In Palghar">In Palghar</option>
                       <option value="Outside Palghar">Outside Palghar</option>
                     </select>
                   </div>
+
+                  <div className="form-group">
+                    <label>Gender</label>
+                    <select
+                      className="my-form-control"
+                      name="gender"
+                      id="gender"
+                      value={formData.gender}
+                      onChange={handleInputChange}
+                    >
+                      <option value="" disabled>
+                        Select
+                      </option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+
                   <div className="form-group">
                     <label>Date of Birth</label>
                     <input
@@ -208,12 +238,12 @@ const SignUp = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  {/* <div className="form-group">
+                  <div className="form-group">
                     <label>Profile Picture</label>
                     <input
                       type="file"
                       accept="image/*"
-                      name="profilePicture"
+                      name="profileimg"
                       id="item08"
                       className="my-form-control"
                       style={{
@@ -226,7 +256,7 @@ const SignUp = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label>Profile Picture</label>
                     <input
                       type="file"
@@ -245,7 +275,6 @@ const SignUp = () => {
                       onChange={handleInputChange}
                     />
                   </div> */}
-                  
                   <button type="submit" className="default-btn reverse">
                     <span>Create Your Profile</span>
                   </button>

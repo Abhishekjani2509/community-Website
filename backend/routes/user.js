@@ -103,11 +103,17 @@ router.get("/find/:id", async (req, res) => {
 
 //GET ALL USER    verified
 router.get("/all", async (req, res) => {
-  const query = req.query.new;
+  const { gender, minAge, maxAge, residence } = req.query;
+
+  // Create a filter object based on the provided parameters
+  const filter = {
+    profileVerified: true,
+    gender: gender || { $exists: true }, // Apply gender filter if provided
+    age: { $gte: minAge || 0, $lte: maxAge || 150 }, // Apply age range filter if provided
+    residence: residence || { $exists: true }, // Apply residence filter if provided
+  };
   try {
-    const users = query
-      ? await User.find({ profileVerified: true }).sort({ _id: -1 }).limit(5)
-      : await User.find({ profileVerified: true });
+    const users = await User.find(filter).sort({ _id: -1 });
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);

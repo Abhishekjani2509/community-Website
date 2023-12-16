@@ -11,43 +11,43 @@ import ActiveGroup from "../component/sidebar/group";
 import ActiveMember from "../component/sidebar/member";
 import ModalSearch from "../component/sidebar/modalsearch";
 
-const name = "William Smith";
-const activety = "Active 3 Days Ago";
-const desc =
-  "Challenges are what make life interesting, and overcoming them is what makes life meaningful";
+// const name = "William Smith";
+// const activety = "Active 3 Days Ago";
+// const desc =
+//   "Challenges are what make life interesting, and overcoming them is what makes life meaningful";
 
-const MemberInfo = [
-  {
-    imgUrl: "../assets/images/member/profile/01.jpg",
-    imgAlt: "Dating Thumb",
-    imgLink: "../assets/images/member/profile/01.jpg",
-  },
-  {
-    imgUrl: "../assets/images/member/profile/02.jpg",
-    imgAlt: "Dating Thumb",
-    imgLink: "../assets/images/member/profile/02.jpg",
-  },
-  {
-    imgUrl: "../assets/images/member/profile/03.jpg",
-    imgAlt: "Dating Thumb",
-    imgLink: "../assets/images/member/profile/03.jpg",
-  },
-  {
-    imgUrl: "../assets/images/member/profile/04.jpg",
-    imgAlt: "Dating Thumb",
-    imgLink: "../assets/images/member/profile/04.jpg",
-  },
-  {
-    imgUrl: "../assets/images/member/profile/05.jpg",
-    imgAlt: "Dating Thumb",
-    imgLink: "../assets/images/member/profile/05.jpg",
-  },
-  {
-    imgUrl: "../assets/images/member/profile/06.jpg",
-    imgAlt: "Dating Thumb",
-    imgLink: "../assets/images/member/profile/06.jpg",
-  },
-];
+// const MemberInfo = [
+//   {
+//     imgUrl: "../assets/images/member/profile/01.jpg",
+//     imgAlt: "Dating Thumb",
+//     imgLink: "../assets/images/member/profile/01.jpg",
+//   },
+//   {
+//     imgUrl: "../assets/images/member/profile/02.jpg",
+//     imgAlt: "Dating Thumb",
+//     imgLink: "../assets/images/member/profile/02.jpg",
+//   },
+//   {
+//     imgUrl: "../assets/images/member/profile/03.jpg",
+//     imgAlt: "Dating Thumb",
+//     imgLink: "../assets/images/member/profile/03.jpg",
+//   },
+//   {
+//     imgUrl: "../assets/images/member/profile/04.jpg",
+//     imgAlt: "Dating Thumb",
+//     imgLink: "../assets/images/member/profile/04.jpg",
+//   },
+//   {
+//     imgUrl: "../assets/images/member/profile/05.jpg",
+//     imgAlt: "Dating Thumb",
+//     imgLink: "../assets/images/member/profile/05.jpg",
+//   },
+//   {
+//     imgUrl: "../assets/images/member/profile/06.jpg",
+//     imgAlt: "Dating Thumb",
+//     imgLink: "../assets/images/member/profile/06.jpg",
+//   },
+// ];
 
 const MemberDetails = () => {
   const { id } = useParams();
@@ -161,6 +161,14 @@ const MemberDetails = () => {
                               <li>
                                 <p className="info-name">Age</p>
                                 <p className="info-details">{memberData.age}</p>
+                              </li>
+                              <li>
+                                <p className="info-name">Gender</p>
+                                <p className="info-details">{memberData.gender}</p>
+                              </li>
+                              <li>
+                                <p className="info-name">Residance</p>
+                                <p className="info-details">{memberData.residence}</p>
                               </li>
                               <li>
                                 <p className="info-name">Date of Birth</p>
@@ -586,7 +594,7 @@ const MemberDetails = () => {
                     <div className="story__inner">
                       <div className="story__thumb position-relative">
                         <img
-                          src="https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg"
+                          src={memberData.profileimg}
                           alt="dating thumb"
                         />
                       </div>

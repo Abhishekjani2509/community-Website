@@ -15,7 +15,7 @@ const Profile = () => {
     Dob: "",
     fatherName: "",
     motherName: "",
-    profileimg:"",
+    profileimg: "",
     height: "",
     education: "",
     jobDetails: "",
@@ -66,20 +66,23 @@ const Profile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${updateData._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updateData),
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/users/${updateData._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updateData),
+        }
+      );
 
       if (response.ok) {
         const updatedUserData = await response.json();
         setUserData(updatedUserData);
         console.log("User profile updated successfully");
-        alert("Profile updated, will be displayed after approval!!")
+        alert("Profile updated, will be displayed after approval!!");
         window.location.reload();
       } else {
         const errorData = await response.json();
@@ -96,28 +99,25 @@ const Profile = () => {
       <PageHeader title={"Your Profile"} curPage={"Profile"} />
       <form>
         {/* Base Info */}
-        <div className="col-xl-3 order-xl-0">
-                <div className="group__bottom--center">
-                  <div className="story__item style2">
-                    <div className="story__inner">
-                      <div className="story__thumb position-relative">
-                        <img
-                          src={userData.profileimg}
-                          alt="Profile Img"
-                        />
-                      </div>
-                      <div className="story__content px-0 pb-0">
-                        <h3>{userData.fullname}</h3>
-                      </div>
-                    </div>
-                  </div>
+        <div className="col-xl-3 order-xl-0 mb-4">
+          <div className="group__bottom--center">
+            <div className="story__item style2">
+              <div className="story__inner">
+                <div className="story__thumb position-relative">
+                  <img
+                    src={userData.profileimg}
+                    alt="Profile Img"
+                    // style={{ width: "200px", height: "200px" }}
+                  />
+                </div>
+                <div className="story__content px-0 pb-0">
+                  <h3>{userData.fullname}</h3>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-
-
-
-        
         <div className="info-card mb-4">
           <div className="info-card-title">
             <h6>Base Info</h6>
@@ -143,6 +143,14 @@ const Profile = () => {
               <li>
                 <p className="info-name">Age</p>
                 <p className="info-details">{userData.age}</p>
+              </li>
+              <li>
+                <p className="info-name">Gender</p>
+                <p className="info-details">{userData.gender}</p>
+              </li>
+              <li>
+                <p className="info-name">Residence</p>
+                <p className="info-details">{userData.residence}</p>
               </li>
               <li>
                 <p className="info-name">Date of Birth</p>

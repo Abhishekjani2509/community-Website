@@ -1,24 +1,53 @@
-const router = require("express").Router();
+const { Router } = require("express");
 const User = require("../models/User");
-const bcrypt = require("bcryptjs"); // Import bcryptjs for password hashing
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
+const router = Router();
+
+const s3Client = new S3Client({
+  region: "ap-south-1", // Replace with your S3 region
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  },
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3Client,
+    bucket: process.env.BUCKET_NAME,
+    key: function (req, file, cb) {
+      cb(
+        null,
+        Date.now().toString() + "-" + file.originalname
+      );
+    },
+  }),
+});
 router.use(cookieParser());
-// REGISTER rout
-router.post("/register", async (req, res) => {
+
+router.post("/register", upload.single("profileimg"), async (req, res) => {
   try {
     const { password, confirmPassword, ...userData } = req.body;
-
+    // Check if password and confirmPassword are present in the request body
+    if (!password || !confirmPassword) {
+      return res.status(400).json({ error: "Password and confirm are required" });
+    }
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Password and confirm do not match" });
     }
-
+    const imageUrl = req.file.location;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
       password: hashedPassword,
+      profileimg: imageUrl,
       ...userData,
     });
 
