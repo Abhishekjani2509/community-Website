@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import FooterThree from "../component/layout/footerthree";
@@ -164,11 +165,15 @@ const MemberDetails = () => {
                               </li>
                               <li>
                                 <p className="info-name">Gender</p>
-                                <p className="info-details">{memberData.gender}</p>
+                                <p className="info-details">
+                                  {memberData.gender}
+                                </p>
                               </li>
                               <li>
                                 <p className="info-name">Residance</p>
-                                <p className="info-details">{memberData.residence}</p>
+                                <p className="info-details">
+                                  {memberData.residence}
+                                </p>
                               </li>
                               <li>
                                 <p className="info-name">Date of Birth</p>
@@ -185,71 +190,71 @@ const MemberDetails = () => {
                             <p>{memberData.description}</p>
                           </div>
                         </div>
-                        {memberData.profileVerified?(
+                        {memberData.profileVerified ? (
                           <div className="info-card mb-4">
-                          <div className="info-card-title">
-                            <h6>Other Information</h6>
-                          </div>
-                          <div className="info-card-content">
-                            <ul className="info-list">
-                              <ul>
-                                <li>
-                                  <p className="info-name">Father's Name</p>
-                                  <p className="info-details">
-                                    {memberData.fatherName}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">Mother's Name</p>
-                                  <p className="info-details">
-                                    {memberData.motherName}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">Height</p>
-                                  <p className="info-details">
-                                    {memberData.height}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">Education</p>
-                                  <p className="info-details">
-                                    {memberData.education}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">Job Details</p>
-                                  <p className="info-details">
-                                    {memberData.jobDetails}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">
-                                    Number of Brothers
-                                  </p>
-                                  <p className="info-details">
-                                    {memberData.numberOfBrothers}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">Number of Sisters</p>
-                                  <p className="info-details">
-                                    {memberData.numberOfSisters}
-                                  </p>
-                                </li>
-                                <li>
-                                  <p className="info-name">Marital Status</p>
-                                  <p className="info-details">
-                                    {memberData.maritalStatus}
-                                  </p>
-                                </li>
+                            <div className="info-card-title">
+                              <h6>Other Information</h6>
+                            </div>
+                            <div className="info-card-content">
+                              <ul className="info-list">
+                                <ul>
+                                  <li>
+                                    <p className="info-name">Father's Name</p>
+                                    <p className="info-details">
+                                      {memberData.fatherName}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">Mother's Name</p>
+                                    <p className="info-details">
+                                      {memberData.motherName}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">Height</p>
+                                    <p className="info-details">
+                                      {memberData.height}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">Education</p>
+                                    <p className="info-details">
+                                      {memberData.education}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">Job Details</p>
+                                    <p className="info-details">
+                                      {memberData.jobDetails}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">
+                                      Number of Brothers
+                                    </p>
+                                    <p className="info-details">
+                                      {memberData.numberOfBrothers}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">
+                                      Number of Sisters
+                                    </p>
+                                    <p className="info-details">
+                                      {memberData.numberOfSisters}
+                                    </p>
+                                  </li>
+                                  <li>
+                                    <p className="info-name">Marital Status</p>
+                                    <p className="info-details">
+                                      {memberData.maritalStatus}
+                                    </p>
+                                  </li>
+                                </ul>
                               </ul>
-                            </ul>
+                            </div>
                           </div>
-                        </div>
-                        ):null}
-
-                        
+                        ) : null}
                       </div>
                     </div>
                     <div
@@ -261,27 +266,6 @@ const MemberDetails = () => {
                       <div className="group__bottom--body bg-white">
                         <div className="group__bottom--allmedia">
                           <div className="media-wrapper">
-                            <ul
-                              className="nav nav-tabs"
-                              id="myTab3"
-                              role="tablist"
-                            >
-                              <li className="nav-item" role="presentation">
-                                <button
-                                  className="nav-link"
-                                  id="photos-media-tab"
-                                  data-bs-toggle="tab"
-                                  data-bs-target="#photos-media"
-                                  type="button"
-                                  role="tab"
-                                  aria-controls="photos-media"
-                                  aria-selected="false"
-                                >
-                                  <i className="fa-solid fa-image"></i> Photos{" "}
-                                  <span>4</span>
-                                </button>
-                              </li>
-                            </ul>
                             <div className="tab-content" id="myTabContent3">
                               <div
                                 className="tab-pane fade show active"
@@ -290,293 +274,30 @@ const MemberDetails = () => {
                                 aria-labelledby="all-media-tab"
                               >
                                 <div className="media-content">
-                                  <ul className="media-upload">
-                                    <li className="upload-now">
-                                      <div className="custom-upload">
-                                        <div className="file-btn">
-                                          <i className="fa-solid fa-upload"></i>{" "}
-                                          Upload
-                                        </div>
-                                        <input type="file" />
-                                      </div>
-                                    </li>
-                                  </ul>
                                   <div className="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-3 g-3">
-                                    <div className="col">
-                                      <div className="media-thumb video-thumb">
-                                        <img
-                                          src="../assets/images/allmedia/01.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/01.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-circle-play"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb albam-thumb">
-                                        <img
-                                          src="../assets/images/allmedia/02.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="../assets/images/allmedia/02.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-camera"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="../assets/images/allmedia/03.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/03.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/04.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/04.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb video-thumb">
-                                        <img
-                                          src="assets/images/allmedia/05.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/05.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-circle-play"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb albam-thumb">
-                                        <img
-                                          src="assets/images/allmedia/06.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/06.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-camera"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb video-thumb">
-                                        <img
-                                          src="assets/images/allmedia/07.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/07.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-circle-play"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/08.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/08.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/09.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/09.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb albam-thumb">
-                                        <img
-                                          src="assets/images/allmedia/10.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/10.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-camera"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb video-thumb">
-                                        <img
-                                          src="assets/images/allmedia/11.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/11.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-circle-play"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb albam-thumb">
-                                        <img
-                                          src="assets/images/allmedia/12.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/12.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-camera"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="text-center mt-5">
-                                    <a href="#" className="default-btn">
-                                      <i className="fa-solid fa-spinner"></i>{" "}
-                                      Load More
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                              <div
-                                className="tab-pane fade"
-                                id="photos-media"
-                                role="tabpanel"
-                                aria-labelledby="photos-media-tab"
-                              >
-                                <div className="media-content">
-                                  <ul className="media-upload">
-                                    <li className="upload-now">
-                                      <div className="custom-upload">
-                                        <div className="file-btn">
-                                          <i className="fa-solid fa-upload"></i>{" "}
-                                          Upload
-                                        </div>
-                                        <input type="file" />
-                                      </div>
-                                    </li>
-                                  </ul>
-                                  <div className="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-3 g-3">
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/03.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/03.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/04.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/04.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/08.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/08.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="col">
-                                      <div className="media-thumb">
-                                        <img
-                                          src="assets/images/allmedia/09.jpg"
-                                          alt="dating thumb"
-                                        />
-                                        <a
-                                          href="assets/images/allmedia/09.jpg"
-                                          target="_blank"
-                                          className="icon"
-                                        >
-                                          <i className="fa-solid fa-image"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div className="text-center mt-5">
-                                    <a href="#" className="default-btn">
-                                      <i className="fa-solid fa-spinner"></i>{" "}
-                                      Load More
-                                    </a>
+                                    {memberData.images
+                                      ? memberData.images.map(
+                                        (image, imgIndex) => (
+                                          // eslint-disable-next-line react/jsx-no-comment-textnodes
+                                            <div className="col">
+                                              <img
+                                                key={imgIndex}
+                                                src={image}
+                                                alt={`User Image ${
+                                                  imgIndex + 1
+                                                }`}
+                                                style={{
+                                                  maxWidth: "200px",
+                                                  maxHeight: "200px",
+                                                  marginRight: "5px",
+                                                  marginTop:"20px"
+                                                }}
+                                                />
+                                                </div>
+                                              )
+                                              )
+                                              : null}
+                                    
                                   </div>
                                 </div>
                               </div>
@@ -593,10 +314,7 @@ const MemberDetails = () => {
                   <div className="story__item style2">
                     <div className="story__inner">
                       <div className="story__thumb position-relative">
-                        <img
-                          src={memberData.profileimg}
-                          alt="dating thumb"
-                        />
+                        <img src={memberData.profileimg} alt="dating thumb" />
                       </div>
                       <div className="story__content px-0 pb-0">
                         <h3>{memberData.fullname}</h3>

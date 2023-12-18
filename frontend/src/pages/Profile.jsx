@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import HeaderOne from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
 import { useAuth } from "../Context/AuthContext";
+import StackGrid from "react-stack-grid";
 
 const Profile = () => {
+  const formData = new FormData();
   const { token } = useAuth();
   const [userData, setUserData] = useState({});
   const [updateData, setUpdateData] = useState({
@@ -15,7 +17,7 @@ const Profile = () => {
     Dob: "",
     fatherName: "",
     motherName: "",
-    profileimg: "",
+    images: [], // Array for multiple images
     height: "",
     education: "",
     jobDetails: "",
@@ -44,7 +46,6 @@ const Profile = () => {
           const userData = await response.json();
           setUserData(userData);
           setUpdateData(userData); // Initialize updateData with current user data
-          // console.log(userData)
         } else {
           const errorData = await response.json();
           console.log(errorData.message || "Failed to fetch user profile");
@@ -58,10 +59,20 @@ const Profile = () => {
   }, [token]);
 
   const handleInputChange = (field, value) => {
-    setUpdateData({
-      ...updateData,
-      [field]: value,
-    });
+    if (field === "images") {
+      // Clear previous files
+      formData.delete("images");
+
+      const filesArray = Array.from(value);
+      filesArray.forEach((file, index) => {
+        formData.append("images", file); // Append each file to the "images" key
+      });
+    } else {
+      setUpdateData({
+        ...updateData,
+        [field]: value,
+      });
+    }
   };
 
   const handleUpdateProfile = async () => {
@@ -69,12 +80,11 @@ const Profile = () => {
       const response = await fetch(
         `http://localhost:5000/api/users/${updateData._id}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(updateData),
+          body: formData, // Send formData directly as the body
         }
       );
 
@@ -207,6 +217,30 @@ const Profile = () => {
           </div>
           <div className="info-card-content">
             <p>{userData.description}</p>
+          </div>
+        </div>
+        <div className="info-card mb-4">
+          <div className="info-card-title">
+            <h6>Images</h6>
+          </div>
+          <div className="info-card-content">
+          <StackGrid columnWidth={150}>
+              {userData.images
+                ? userData.images.map((image, imgIndex) => (
+                    // eslint-disable-next-line jsx-a11y/img-redundant-alt
+                    <img
+                      key={imgIndex}
+                      src={image}
+                      alt={`User Image ${imgIndex + 1}`}
+                      style={{
+                        maxWidth: "150px",
+                        maxHeight: "150px",
+                        marginRight: "5px",
+                      }}
+                    />
+                  ))
+                : null}
+            </StackGrid>
           </div>
         </div>
         {/* Update Form */}
@@ -606,6 +640,28 @@ const Profile = () => {
                   onChange={(e) =>
                     handleInputChange("description", e.target.value)
                   }
+                />
+              </div>
+              <div className="form-group">
+                <label>Upload Images</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="images"
+                  id="images"
+                  className="my-form-control"
+                  style={{
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "1px solid #ccc",
+                    color: "#333",
+                    cursor: "pointer",
+                  }}
+                  multiple
+                  onChange={(e) => {
+                    console.log(e.currentTarget.files);
+                    handleInputChange("images", e.currentTarget.files);
+                  }}
                 />
               </div>
             </div>

@@ -22,10 +22,7 @@ const upload = multer({
     s3: s3Client,
     bucket: process.env.BUCKET_NAME,
     key: function (req, file, cb) {
-      cb(
-        null,
-        Date.now().toString() + "-" + file.originalname
-      );
+      cb(null, Date.now().toString() + "-" + file.originalname);
     },
   }),
 });
@@ -36,29 +33,45 @@ router.post("/register", upload.single("profileimg"), async (req, res) => {
     const { password, confirmPassword, ...userData } = req.body;
     // Check if password and confirmPassword are present in the request body
     if (!password || !confirmPassword) {
-      return res.status(400).json({ error: "Password and confirm are required" });
+      return res
+        .status(400)
+        .json({ error: "Password and confirm are required" });
     }
     if (password !== confirmPassword) {
-      return res.status(400).json({ error: "Password and confirm do not match" });
+      return res
+        .status(400)
+        .json({ error: "Password and confirm do not match" });
     }
-    const imageUrl = req.file.location;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    if (req.file) {
+      const imageUrl = req.file.location;
 
-    const newUser = new User({
-      password: hashedPassword,
-      profileimg: imageUrl,
-      ...userData,
-    });
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
 
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+      const newUser = new User({
+        password: hashedPassword,
+        profileimg: imageUrl,
+        ...userData,
+      });
+
+      const savedUser = await newUser.save();
+      res.status(201).json(savedUser);
+    } else {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const newUser = new User({
+        password: hashedPassword,
+        ...userData,
+      });
+      const savedUser = await newUser.save();
+      res.status(201).json(savedUser);
+    }
   } catch (err) {
     console.error("Error during registration:", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 router.post("/admin-login", async (req, res) => {
   try {

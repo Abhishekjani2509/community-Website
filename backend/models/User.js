@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
     Dob: { type: String, required: true },
     gender: { type: String, required: true },
     profileimg: { type: String },
-    images:{type:Array},
+    images:{type:[String]},
     fatherName: { type: String },
     motherName: { type: String },
     height: { type: String },

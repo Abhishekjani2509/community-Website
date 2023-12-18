@@ -31,6 +31,7 @@ const SignUp = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    console.log(file)
     setProfileImg(file);
   };
 
@@ -58,7 +59,7 @@ const SignUp = () => {
       });
       
       // Assuming you still want to log the form data for debugging purposes
-      console.log("FormData with image:", formDataWithImage);
+      // console.log("FormData with image:", formDataWithImage);
       
       
 
@@ -122,6 +123,7 @@ const SignUp = () => {
                       placeholder="Enter Your Fullname *"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -134,6 +136,7 @@ const SignUp = () => {
                       className="my-form-control"
                       onChange={handleInputChange}
                       autoComplete="username"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -146,6 +149,7 @@ const SignUp = () => {
                       className="my-form-control"
                       onChange={handleInputChange}
                       autoComplete="current-password"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -158,6 +162,7 @@ const SignUp = () => {
                       className="my-form-control"
                       onChange={handleInputChange}
                       autoComplete="new-password"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -169,6 +174,7 @@ const SignUp = () => {
                       placeholder="Enter Your Phone no *"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -180,6 +186,7 @@ const SignUp = () => {
                       placeholder="Enter Address *"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -191,6 +198,7 @@ const SignUp = () => {
                       placeholder="Enter Your Age*"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -201,6 +209,7 @@ const SignUp = () => {
                       id="residence"
                       value={formData.residence}
                       onChange={handleInputChange}
+                      required
                     >
                       <option value="" disabled>
                         Select
@@ -218,6 +227,7 @@ const SignUp = () => {
                       id="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
+                      required
                     >
                       <option value="" disabled>
                         Select
@@ -236,6 +246,7 @@ const SignUp = () => {
                       placeholder="Enter Your Date of Birth*"
                       className="my-form-control"
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
