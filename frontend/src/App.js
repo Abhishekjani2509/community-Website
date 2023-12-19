@@ -31,58 +31,42 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-      <div className="App">
-        <Router>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="index-2" element={<HomePageTwo />} />
-            <Route path="index-3" element={<HomePageThree />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="membership" element={<MembershipPage />} />
-            <Route path="comingsoon" element={<ComingSoonPage />} />
-            <Route path="*" element={<ErrorPage />} />
-            <Route path="community" element={<CommunityPage />} />
-            <Route path="group" element={<GroupPage />} />
-            <Route path="group-single" element={<GroupDetails />} />
-            <Route
-              path="members"
-              element={
-                <ProtectedRoute>
-                  <MembersPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="activity" element={<ActivityPage />} />
-            <Route path="shop" element={<ShopPage />} />
-            <Route path="shop-single" element={<ShopDetails />} />
-            <Route path="shop-cart" element={<ShopCart />} />
-            <Route path="blog" element={<BlogPage />} />
-            <Route path="blog-2" element={<BlogPageTwo />} />
-            <Route path="blog-single" element={<BlogDetails />} />
-            <Route path="contact" element={<ContactUs />} />
-            <Route path="register" element={<SignUp />} />
-            <Route path="login" element={<LogIn />} />
-            <Route
-              path="member-single/:id"
-              element={
-                <ProtectedRoute>
-                  <MemberDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="profile"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="policy" element={<Policy />} />
-          </Routes>
-        </Router>
-      </div>
+    <div className="App">
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="members"
+            element={
+              <ProtectedRoute>
+                <MembersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="contact" element={<ContactUs />} />
+          <Route path="register" element={<SignUp />} />
+          <Route path="login" element={<LogIn />} />
+          <Route
+            path="member-single/:id"
+            element={
+              <ProtectedRoute>
+                <MemberDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

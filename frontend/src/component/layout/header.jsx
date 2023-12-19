@@ -8,7 +8,7 @@ const HeaderOne = () => {
   const { logout } = useAuth();
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
     alert("Logout Successful");
   };
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
@@ -37,7 +37,7 @@ const HeaderOne = () => {
         <div className="container">
           <nav className="navbar navbar-expand-lg">
             <Link className="navbar-brand" to="/">
-              <img src="../assets/images/logo/logo.png" alt="logo" />
+              <h4>Community Mitra</h4>
             </Link>
             <button
               className="navbar-toggler collapsed"

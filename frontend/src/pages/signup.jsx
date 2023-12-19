@@ -104,8 +104,8 @@ const SignUp = () => {
       </div>
       <div className="container">
         <div className="row">
-          <div className="image"></div>
-          <div className="col-lg-7">
+          {/* <div className="image"></div> */}
+          <div className="">
             <div className="log-reg-inner">
               <div className="section-header">
                 <h2 className="title">{title} </h2>

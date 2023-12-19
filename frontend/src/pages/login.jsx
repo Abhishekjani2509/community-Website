@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 
-const title = "Welcome to Ollya";
+const title = "Welcome";
 
 const LogIn = () => {
   const { login } = useAuth();
@@ -108,7 +108,7 @@ const LogIn = () => {
             <div className="col-lg-8 col-7">
               <div className="logo">
                 <Link to="/">
-                  <img src="assets/images/logo/logo.png" alt="logo" />
+                  <h4>Community Mitra</h4>
                 </Link>
               </div>
             </div>
@@ -122,8 +122,8 @@ const LogIn = () => {
       </div>
       <div className="container">
         <div className="row">
-          <div className="image image-log"></div>
-          <div className="col-lg-7">
+          {/* <div className="image image-log"></div> */}
+          <div className="">
             <div className="log-reg-inner">
               <div className="section-header inloginp">
                 <h2 className="title">{title}</h2>

@@ -8,7 +8,7 @@ class PageHeader extends Component {
     return (
       <div
         className="pageheader bg_img"
-        style={{ backgroundImage: "url(/assets/images/bg-img/pageheader.jpg)" }}
+        style={{ backgroundImage: "url('/assets/images/bg-img/lay.jpg')" }}
       >
         <div className="container">
           <div className="pageheader__content text-center">
