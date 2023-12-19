@@ -5,7 +5,7 @@ import { useAuth } from "../../Context/AuthContext";
 const Profile = () => {
   const { token } = useAuth();
   const [users, setUsers] = useState([]);
-  const apiUrl = "http://localhost:5000/api/users/profileReq";
+  const apiUrl = `${process.env.DOMAIN}/api/users/profileReq`;
 
   useEffect(() => {
     loadUsers();
@@ -28,7 +28,7 @@ const Profile = () => {
   const updateUser = async (id) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/users/admin/${id}`,
+        `${process.env.DOMAIN}/api/users/admin/${id}`,
         {
           profileVerified: true,
           message: "Your Profile has been verified",
@@ -49,7 +49,7 @@ const Profile = () => {
   const rejectUser = async (id) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/users/admin/${id}`,
+        `${process.env.DOMAIN}/api/users/admin/${id}`,
         {
           isRejected: true,
           message:

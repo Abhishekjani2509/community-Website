@@ -6,7 +6,7 @@ const Register = () => {
   const { token } = useAuth();
   // console.log(token);
   const [users, setUsers] = useState([]);
-  const apiUrl = "http://localhost:5000/api/users/registerReq";
+  const apiUrl = `${process.env.DOMAIN}/api/users/registerReq`;
 
   useEffect(() => {
     loadUsers();
@@ -31,7 +31,7 @@ const Register = () => {
     try {
       // Uncomment the following lines if you want to delete a user
       await axios.put(
-        `http://localhost:5000/api/users/admin/${id}`,
+        `${process.env.DOMAIN}/api/users/admin/${id}`,
         {
           registerVerified: true,
           message:
@@ -51,7 +51,7 @@ const Register = () => {
   };
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
+      await axios.delete(`${process.env.DOMAIN}/api/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Replace 'Bearer' with your authentication scheme if needed
         },

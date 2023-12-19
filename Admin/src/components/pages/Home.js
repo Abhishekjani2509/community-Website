@@ -6,7 +6,7 @@ import { useAuth } from "../../Context/AuthContext";
 const Home = () => {
   const { token } = useAuth();
   const [users, setUsers] = useState([]);
-  const apiUrl = "http://localhost:5000/api/users/admin";
+  const apiUrl = `${process.env.DOMAIN}/api/users/admin`;
 
   useEffect(() => {
     loadUsers();
@@ -29,7 +29,7 @@ const Home = () => {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
+      await axios.delete(`${process.env.DOMAIN}/api/users/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
