@@ -7,7 +7,7 @@ import HeaderOne from "../component/layout/header";
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
-  const api = "http://localhost:5000/api/blog/all";
+  const api = `${process.env.REACT_APP_DOMAIN}/api/blog/all`;
   useEffect(() => {
     const fetchBlogs = async () => {
       try {

@@ -17,13 +17,13 @@ let infoListContent = [
         imgUrl: 'assets/images/contact/icon/01.png',
         imgAlt: 'Contact Info Thumb',
         title: 'Office Address',
-        desc: '1201 park street, Fifth Avenue',
+        desc: 'Palghar',
     },
     {
         imgUrl: 'assets/images/contact/icon/02.png',
         imgAlt: 'Contact Info Thumb',
         title: 'Phone number',
-        desc: '+22698 745 632, 02 982 745',
+        desc: '+91 9769006253',
     },
     {
         imgUrl: 'assets/images/contact/icon/03.png',

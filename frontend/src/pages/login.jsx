@@ -57,7 +57,7 @@ const LogIn = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${process.env.REACT_APP_DOMAIN}/api/auth/login`,
         {
           phone: userPhone,
           password: userPass,

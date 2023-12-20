@@ -298,8 +298,8 @@ class FooterThree extends Component {
           <div className="container">
             <div className="footer__content text-center">
               <p className="mb-0">
-                All Rights Reserved &copy; <Link to="/"> Ollya </Link> || Design
-                By: CodexCoder
+                All Rights Reserved &copy; <Link to="/"> Community Mitra </Link> || Design
+                By: Branding Catalysts Pvt Ltd.
               </p>
             </div>
           </div>

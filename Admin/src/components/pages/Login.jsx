@@ -23,7 +23,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.DOMAIN}/api/auth/admin-login`,
+        `${process.env.REACT_APP_DOMAIN}/api/auth/admin-login`,
         {
           phone: userPhone,
           password: userPass,

@@ -12,7 +12,7 @@ const MembersPage = () => {
   const [maxAge, setMaxAge] = useState("");
   const [residence, setResidence] = useState("");
 
-  const api = `http://localhost:5000/api/users/all`;
+  const api = `${process.env.REACT_APP_DOMAIN}/api/users/all`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +47,7 @@ const MembersPage = () => {
   return (
     <div>
       <HeaderOne />
-      <PageHeader title={"Ollya All Members"} curPage={"All Members"} />
+      <PageHeader title={"All Members"} curPage={"All Members"} />
       <div className="member member--style2 padding-top padding-bottom">
         <div className="container">
           <div className="section__wrapper">

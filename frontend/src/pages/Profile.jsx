@@ -1,38 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HeaderOne from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
 import { useAuth } from "../Context/AuthContext";
 import StackGrid from "react-stack-grid";
 
 const Profile = () => {
-  const formData = new FormData();
   const { token } = useAuth();
   const [userData, setUserData] = useState({});
-  const [updateData, setUpdateData] = useState({
-    fullname: "",
-    phone: "",
-    email: "",
-    address: "",
-    age: "",
-    Dob: "",
-    fatherName: "",
-    motherName: "",
-    images: [], // Array for multiple images
-    height: "",
-    education: "",
-    jobDetails: "",
-    numberOfBrothers: "",
-    numberOfSisters: "",
-    maritalStatus: "",
-    description: "",
-    _id: "",
-  });
+  const [updateData, setUpdateData] = useState({});
+
+  const imageInputRef = useRef();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/users/profile",
+          `${process.env.REACT_APP_DOMAIN}/api/users/profile`,
           {
             method: "GET",
             headers: {
@@ -45,13 +28,13 @@ const Profile = () => {
         if (response.ok) {
           const userData = await response.json();
           setUserData(userData);
-          setUpdateData(userData); // Initialize updateData with current user data
+          setUpdateData(userData);
         } else {
           const errorData = await response.json();
           console.log(errorData.message || "Failed to fetch user profile");
         }
       } catch (error) {
-        console.log("Error fetching user profile" + error.message);
+        console.log("Error fetching user profile: " + error.message);
       }
     };
 
@@ -60,31 +43,41 @@ const Profile = () => {
 
   const handleInputChange = (field, value) => {
     if (field === "images") {
-      // Clear previous files
-      formData.delete("images");
-
       const filesArray = Array.from(value);
-      filesArray.forEach((file, index) => {
-        formData.append("images", file); // Append each file to the "images" key
-      });
+      setUpdateData((prevData) => ({
+        ...prevData,
+        [field]: filesArray,
+      }));
     } else {
-      setUpdateData({
-        ...updateData,
+      setUpdateData((prevData) => ({
+        ...prevData,
         [field]: value,
-      });
+      }));
     }
   };
 
   const handleUpdateProfile = async () => {
+    const formData = new FormData();
+    Object.entries(updateData).forEach(([key, value]) => {
+      console.log("Appending to FormData:", key, value);
+      if (key === "images") {
+        value.forEach((file) => {
+          formData.append("images", file);
+        });
+      } else {
+        formData.append(key, value);
+      }
+    });
+
     try {
       const response = await fetch(
-        `http://localhost:5000/api/users/${updateData._id}`,
+        `${process.env.REACT_APP_DOMAIN}/api/users/${updateData._id}`,
         {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          body: formData, // Send formData directly as the body
+          body: formData,
         }
       );
 
@@ -99,10 +92,9 @@ const Profile = () => {
         console.log(errorData.message || "Failed to update user profile");
       }
     } catch (error) {
-      console.log("Error updating user profile" + error.message);
+      console.log("Error updating user profile: " + error.message);
     }
   };
-
   return (
     <div>
       <HeaderOne />
@@ -224,23 +216,23 @@ const Profile = () => {
             <h6>Images</h6>
           </div>
           <div className="info-card-content">
-          <StackGrid columnWidth={150}>
-              {userData.images
-                ? userData.images.map((image, imgIndex) => (
-                    // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                    <img
-                      key={imgIndex}
-                      src={image}
-                      alt={`User Image ${imgIndex + 1}`}
-                      style={{
-                        maxWidth: "150px",
-                        maxHeight: "150px",
-                        marginRight: "5px",
-                      }}
-                    />
-                  ))
-                : null}
-            </StackGrid>
+            {/* <StackGrid columnWidth={150}> */}
+            {userData.images
+              ? userData.images.map((image, imgIndex) => (
+                  // eslint-disable-next-line jsx-a11y/img-redundant-alt
+                  <img
+                    key={imgIndex}
+                    src={image}
+                    alt={`User Image ${imgIndex + 1}`}
+                    style={{
+                      maxWidth: "150px",
+                      maxHeight: "150px",
+                      marginRight: "5px",
+                    }}
+                  />
+                ))
+              : null}
+            {/* </StackGrid> */}
           </div>
         </div>
         {/* Update Form */}
@@ -643,7 +635,7 @@ const Profile = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Upload Images</label>
+                <label>Upload Maximum 6 Images</label>
                 <input
                   type="file"
                   accept="image/*"

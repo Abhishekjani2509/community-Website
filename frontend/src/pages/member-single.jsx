@@ -59,7 +59,7 @@ const MemberDetails = () => {
     const fetchMemberData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/find/${id}`
+          `${process.env.REACT_APP_DOMAIN}/api/users/find/${id}`
         ); // Adjust the API endpoint accordingly
         const data = await response.json();
         setMemberData(data);

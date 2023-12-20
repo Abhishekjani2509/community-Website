@@ -13,7 +13,7 @@ const Blog = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const apiUrl = "http://localhost:5000/api/blog/all";
+  const apiUrl = `${process.env.REACT_APP_DOMAIN}/api/blog/all`;
 
   useEffect(() => {
     loadUsers();
@@ -31,7 +31,7 @@ const Blog = () => {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/blog/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_DOMAIN}/api/blog/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +54,7 @@ const Blog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/blog/create", blogData, {
+      await axios.post(`${process.env.REACT_APP_DOMAIN}/api/blog/create`, blogData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

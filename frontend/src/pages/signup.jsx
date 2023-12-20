@@ -39,7 +39,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const apiUrl = "http://localhost:5000/api/auth/register";
+      const apiUrl = `${process.env.REACT_APP_DOMAIN}/api/auth/register`;
 
       const formDataWithImage = new FormData();
 
@@ -90,7 +90,7 @@ const SignUp = () => {
             <div className="col-lg-8 col-7">
               <div className="logo">
                 <Link to="/">
-                  <img src="assets/images/logo/logo.png" alt="logo" />
+                  <h4>Community Mitra</h4>
                 </Link>
               </div>
             </div>
