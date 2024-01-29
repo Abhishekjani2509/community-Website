@@ -42,7 +42,7 @@
             .navbar--bottom-line {
                 border: none;
             }
-            .header__bottom {}
+            // .header__bottom {}
         }
     }
     &__top {
@@ -121,7 +121,7 @@
                                 background: rgba($white-color, $alpha: .1);
                                 @include add-prefix(transform, rotate(15deg));
                             }
-                            a {}
+                            // a {}
                         }
                     }
                 }
@@ -143,7 +143,7 @@
                                     }
                                 }
                             }
-                            a {}
+                            // a {}
                             ul {
                                 li {
                                     a {
@@ -200,7 +200,7 @@
     &__more {
         @extend %p-rel;
         .default-btn {
-            background: $theme-color;
+            background: #9361e2;
             color: $white-color;
             padding: 15px 20px;
             letter-spacing: .850px;

@@ -1,63 +1,28 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import FooterThree from "../component/layout/footerthree";
+import { useParams } from "react-router-dom";
+import ModalImage from "react-modal-image";
+// import FooterThree from "../component/layout/footerthree";
 import HeaderOne from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
-import SelectAge from "../component/select/selectage";
-import SelectCountry from "../component/select/selectcountry";
-import SelectGender from "../component/select/selectgender";
-import SelectProduct from "../component/select/selectproduct";
-import ActiveGroup from "../component/sidebar/group";
-import ActiveMember from "../component/sidebar/member";
-import ModalSearch from "../component/sidebar/modalsearch";
-
-// const name = "William Smith";
-// const activety = "Active 3 Days Ago";
-// const desc =
-//   "Challenges are what make life interesting, and overcoming them is what makes life meaningful";
-
-// const MemberInfo = [
-//   {
-//     imgUrl: "../assets/images/member/profile/01.jpg",
-//     imgAlt: "Dating Thumb",
-//     imgLink: "../assets/images/member/profile/01.jpg",
-//   },
-//   {
-//     imgUrl: "../assets/images/member/profile/02.jpg",
-//     imgAlt: "Dating Thumb",
-//     imgLink: "../assets/images/member/profile/02.jpg",
-//   },
-//   {
-//     imgUrl: "../assets/images/member/profile/03.jpg",
-//     imgAlt: "Dating Thumb",
-//     imgLink: "../assets/images/member/profile/03.jpg",
-//   },
-//   {
-//     imgUrl: "../assets/images/member/profile/04.jpg",
-//     imgAlt: "Dating Thumb",
-//     imgLink: "../assets/images/member/profile/04.jpg",
-//   },
-//   {
-//     imgUrl: "../assets/images/member/profile/05.jpg",
-//     imgAlt: "Dating Thumb",
-//     imgLink: "../assets/images/member/profile/05.jpg",
-//   },
-//   {
-//     imgUrl: "../assets/images/member/profile/06.jpg",
-//     imgAlt: "Dating Thumb",
-//     imgLink: "../assets/images/member/profile/06.jpg",
-//   },
-// ];
+// import SelectAge from "../component/select/selectage";
+// import SelectCountry from "../component/select/selectcountry";
+// import SelectGender from "../component/select/selectgender";
+// import SelectProduct from "../component/select/selectproduct";
+// import ActiveGroup from "../component/sidebar/group";
+// import ActiveMember from "../component/sidebar/member";
+// import ModalSearch from "../component/sidebar/modalsearch";
+// import ReadMoreReact from "read-more-react";
 
 const MemberDetails = () => {
   const { id } = useParams();
   const [memberData, setMemberData] = useState({});
-
+  console.log(id);
   useEffect(() => {
     // Fetch member data using the 'id' from the URL
     const fetchMemberData = async () => {
       try {
+        console.log("productid", id);
         const response = await fetch(
           `${process.env.REACT_APP_DOMAIN}/api/users/find/${id}`
         ); // Adjust the API endpoint accordingly
@@ -69,7 +34,8 @@ const MemberDetails = () => {
       }
     };
     fetchMemberData();
-  }, [id]);
+  }, []); // 'id' is included as a dependency
+  console.log(memberData);
   return (
     <div>
       <HeaderOne />
@@ -188,6 +154,14 @@ const MemberDetails = () => {
                           </div>
                           <div className="info-card-content">
                             <p>{memberData.description}</p>
+                            {/* {console.log(memberData.description.length)} */}
+                            {/* <ReadMoreReact
+                              min={2}
+                              ideal={10}
+                              max={150}
+                              text={memberData.description}
+                              readMoreText="click here to read more"
+                            /> */}
                           </div>
                         </div>
                         {memberData.profileVerified ? (
@@ -277,27 +251,35 @@ const MemberDetails = () => {
                                   <div className="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-3 g-3">
                                     {memberData.images
                                       ? memberData.images.map(
-                                        (image, imgIndex) => (
-                                          // eslint-disable-next-line react/jsx-no-comment-textnodes
+                                          (image, imgIndex) => (
+                                            // eslint-disable-next-line react/jsx-no-comment-textnodes
                                             <div className="col">
-                                              <img
+                                              <ModalImage
+                                                key={imgIndex}
+                                                small={image}
+                                                large={image}
+                                                alt={`User Image ${
+                                                  imgIndex + 1
+                                                }`}
+                                              />
+                                              
+                                              {/* <img
                                                 key={imgIndex}
                                                 src={image}
                                                 alt={`User Image ${
                                                   imgIndex + 1
                                                 }`}
                                                 style={{
-                                                  maxWidth: "200px",
-                                                  maxHeight: "200px",
-                                                  marginRight: "5px",
-                                                  marginTop:"20px"
+                                                  maxWidth: "150px",
+                                                  maxHeight: "150px",
+                                                  minBlockSize: "100px",
+                                                  marginRight: "100px",
                                                 }}
-                                                />
-                                                </div>
-                                              )
-                                              )
-                                              : null}
-                                    
+                                              /> */}
+                                            </div>
+                                          )
+                                        )
+                                      : null}
                                   </div>
                                 </div>
                               </div>
@@ -324,6 +306,9 @@ const MemberDetails = () => {
                           </p>
                         </div> */}
                         <p className="mb-2">{memberData.description}</p>
+                        {/* <ReadMoreReact 
+                      text={memberData.description}
+                      readMoreText="click here to read more"/> */}
                         <div className="story__content--author mt-3 pb-2">
                           {/* <h6 className="d-block w-100 mb-3">
                             {memberData.fullname} Photos

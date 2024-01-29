@@ -87,7 +87,7 @@
         }
     }
     .image {
-        background: url(../../assets/images/login/reg.jpg);
+        background: url(../../assets/images/login/reg.png);
         background-repeat: no-repeat !important;
         background-position: center !important;
         background-size: cover !important;
@@ -98,7 +98,7 @@
         z-index: -1;
         @extend %p-abs;
         &.image-log {
-            background: url(../../assets/images/login/log.jpg);
+            background: url(../../assets/images/login/log.png);
         }
         @include breakpoint(max-lg) {
             display: none;

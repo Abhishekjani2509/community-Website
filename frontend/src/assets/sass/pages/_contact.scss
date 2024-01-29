@@ -1,7 +1,14 @@
 .contact-item {
     padding: 50px 30px;
     background: $white-color;
-    @include border-radius(4px);
+    @include border-radius(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;// Add transition for a smooth effect
+    box-shadow: 7px 6px 7px grey;
+    &:hover {
+        transform: translateY(-5px); // Apply translateY on hover
+        box-shadow: 0 10px 20px rgba(136, 136, 136, 0.3); // Apply box shadow on hover
+    }
+
     .contact-thumb {
         @extend %rel;
         width: 70px;
@@ -14,20 +21,16 @@
         &:before,
         &:after {
             @extend %abs;
-            // animation-play-state: paused;
             opacity: 1;
             z-index: 1 !important;
             border-color: $theme-color !important;
-
         }
 
         &:before {
-            // @include ripple(2s, 0s);
             border-width: 25px;
         }
 
         &:after {
-            // @include ripple(2s, .3s);
             border-width: 15px;
         }
         img {
@@ -35,6 +38,7 @@
             z-index: 2;
         }
     }
+
     .contact-content {
         .title {}
         p {

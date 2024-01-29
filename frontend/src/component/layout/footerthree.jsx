@@ -1,116 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-const newstitle = "Newsletter Sign up";
-const jointitle = "Join Community";
-const aboutTitle = "About Ollya";
-const aboutDesc =
-  "Ollya is a friendly dating theme based on HTML template for the community functionality";
-const featureTitle = "Featured Members";
-const supportTitle = "Contacts & Support";
-const recentTitle = "Recent Activity";
 
-let SocialList = [
-  {
-    iconName: "fa-brands fa-twitter",
-    visitLink: "#",
-  },
-  {
-    iconName: "fa-brands fa-twitch",
-    visitLink: "#",
-  },
-  {
-    iconName: "fa-brands fa-instagram",
-    visitLink: "#",
-  },
-  {
-    iconName: "fa-brands fa-dribbble",
-    visitLink: "#",
-  },
-  {
-    iconName: "fa-brands fa-facebook-messenger",
-    visitLink: "#",
-  },
-];
-
-let AboutInfo = [
-  {
-    Name: "Address",
-    Details: "Suite-13 Tropical Center New Elephant Road 1205",
-  },
-  {
-    Name: "Contact",
-    Details: "+30 226 4881 514 www.yoursitename.com",
-  },
-];
-
-let FeatureList = [
-  {
-    imgUrl: "assets/images/footer/feature/01.jpg",
-    imgAlt: "Dating Thumb",
-    title: "Samantha Lee",
-    activety: "Active",
-    className: "feature__activity",
-  },
-  {
-    imgUrl: "assets/images/footer/feature/02.jpg",
-    imgAlt: "Dating Thumb",
-    title: "Peter McMillan",
-    activety: "2 Hours Ago",
-    className: "feature__activity feature__activity--ofline",
-  },
-  {
-    imgUrl: "assets/images/footer/feature/03.jpg",
-    imgAlt: "Dating Thumb",
-    title: "Tluagtea Tualzik",
-    activety: "Active",
-    className: "feature__activity",
-  },
-];
-
-let InfoList = [
-  {
-    pageName: "About Us",
-    pageLink: "/about",
-  },
-  {
-    pageName: "Our Team",
-    pageLink: "#",
-  },
-  {
-    pageName: "Testimonials",
-    pageLink: "#",
-  },
-  {
-    pageName: "Get in Touch",
-    pageLink: "/contact",
-  },
-  {
-    pageName: "FAQ",
-    pageLink: "#",
-  },
-];
-
-let RecentPost = [
-  {
-    imgUrl: "assets/images/footer/activity/01.jpg",
-    imgAlt: "Dating Thumb",
-    title: "Where to find a good...",
-    pubDate: "May 13, 2022",
-  },
-  {
-    imgUrl: "assets/images/footer/activity/02.jpg",
-    imgAlt: "Dating Thumb",
-    title: "Where to find a good...",
-    pubDate: "May 13, 2022",
-  },
-  {
-    imgUrl: "assets/images/footer/activity/03.jpg",
-    imgAlt: "Dating Thumb",
-    title: "Where to find a good...",
-    pubDate: "May 13, 2022",
-  },
-];
 
 class FooterThree extends Component {
   constructor(props) {
@@ -299,7 +190,7 @@ class FooterThree extends Component {
             <div className="footer__content text-center">
               <p className="mb-0">
                 All Rights Reserved &copy; <Link to="/"> Community Mitra </Link> || Design
-                By: Branding Catalysts Pvt Ltd.
+                By : Branding Catalyst Pvt Ltd.
               </p>
             </div>
           </div>

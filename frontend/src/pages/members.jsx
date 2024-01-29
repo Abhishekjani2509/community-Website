@@ -84,16 +84,17 @@ const MembersPage = () => {
               {fetchData.map((val, i) => (
                 <div className="member__item" key={i}>
                   <div className="member__inner">
+                  <Link to={`/member-single/${val._id}`} key={val._id}>
+
                     <div className="member__thumb">
-                      <img src={`${val.profileimg}`} alt={`${val.imgAlt}`} />
+                      <img src={`${val.profileimg}`} style={{maxHeight:"200px",maxWidth:"200px", minBlockSize:"150px" }} alt={`${val.imgAlt}`} />
                       <span className={val.fullname}></span>
                     </div>
                     <div className="member__content">
-                      <Link to={`/member-single/${val._id}`} key={val._id}>
                         <h5>{val.fullname}</h5>
-                      </Link>
                       <p>{val.activity}</p>
                     </div>
+                      </Link>
                   </div>
                 </div>
               ))}
@@ -125,7 +126,7 @@ const MembersPage = () => {
                   <div className="row align-items-center row-cols-1">
                     <div className="col">
                       <label>Looking for</label>
-                      <div className="banner__inputlist">
+                      <div className="">
                         <select
                           className="form-control"
                           value={type}
@@ -136,12 +137,14 @@ const MembersPage = () => {
                           <option value="female">Female</option>
                         </select>
                       </div>
+                    <br/>
+
                     </div>
                     <div className="col">
                       <label>Age Range</label>
                       <div className="row g-3">
                         <div className="col-6">
-                          <div className="banner__inputlist">
+                          <div className="">
                             <input
                               type="text"
                               className="form-control"
@@ -152,7 +155,7 @@ const MembersPage = () => {
                           </div>
                         </div>
                         <div className="col-6">
-                          <div className="banner__inputlist">
+                          <div className="">
                             <input
                               type="text"
                               className="form-control"
@@ -163,10 +166,12 @@ const MembersPage = () => {
                           </div>
                         </div>
                       </div>
+                    <br/>
+
                     </div>
                     <div className="col">
                       <label>Residence</label>
-                      <div className="banner__inputlist">
+                      <div className="">
                         <select
                           className="form-control"
                           value={residence}
@@ -181,6 +186,7 @@ const MembersPage = () => {
                           </option>
                         </select>
                       </div>
+                    <br/>
                     </div>
                     <div className="col">
                       <button

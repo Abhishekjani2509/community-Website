@@ -1,5 +1,5 @@
 // App.js
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
 import ProtectedRoute from "./Context/ProtectedRoute";
@@ -28,10 +28,23 @@ import ShopDetails from "./pages/shopdetails";
 import SignUp from "./pages/signup";
 import Policy from "./pages/policy";
 import Profile from "./pages/Profile";
-
+import Preloader from "./pages/preloader"
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading delay (you can replace this with your actual data fetching logic)
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 2000); 
+    return () => clearTimeout(timeoutId);  // Cleanup to avoid memory leaks
+  }, []);
   return (
-    <div className="App">
+    <>
+      {loading ? (
+        <Preloader />
+      ) : 
+    (<div className="App">
       <Router>
         <ScrollToTop />
         <Routes>
@@ -66,7 +79,8 @@ function App() {
           />
         </Routes>
       </Router>
-    </div>
+    </div>)}
+    </>
   );
 }
 

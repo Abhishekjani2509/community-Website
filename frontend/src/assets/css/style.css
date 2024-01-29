@@ -90,7 +90,7 @@ html {
  */
 body {
   margin: 0;
-  background: #f1f7fe;
+  background: #fff;
   color: #fff;
   font-size: 1rem;
   line-height: 1.5;
@@ -811,7 +811,7 @@ body h3,
 body h4,
 body h5,
 body h6 {
-  font-family: "Public Sans", sans-serif;
+  font-family: cursive;
 }
 
 .widget.shop-widget .widget-wrapper .shop-menu li a, .log-reg .log-reg-inner .main-content .or-content, .log-reg .log-reg-inner .main-content .or, .log-reg .top-menu-area .logo, .group__bottom--center .story__thumb a, .group__bottom--body .top .right span, .meet__content a, .meet__thumb a, .story__content--author a, .story__thumb a, .banner .default-btn, .mainmenu ul li ul li a, .mainmenu ul li ul li, .mainmenu ul li {
@@ -2531,7 +2531,9 @@ iframe {
   background: #f24570;
 }
 .about__inner {
-  padding: 60px 30px;
+  padding: 57px 15px;
+    margin: 1rem;
+    width: 15rem;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
@@ -2542,6 +2544,7 @@ iframe {
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+  box-shadow: 15px 5px 10px grey;
 }
 .about__inner:hover {
   -webkit-transform: translateY(-5px);
@@ -2687,7 +2690,7 @@ iframe {
   }
 }
 .about--style3 .section__wrapper form .banner__inputlist {
-  background: #f1f7fe;
+  background: #fff;
 }
 @media (min-width: 576px) {
   .about--style3 .section__wrapper form .banner__inputlist {
@@ -2705,7 +2708,7 @@ iframe {
   }
 }
 .about--style3 .section__wrapper form select {
-  background: #f1f7fe;
+  background: #fff;
 }
 .about--style4 .about__inner {
   padding-block: 70px;
@@ -2913,7 +2916,7 @@ iframe {
 .member__radio {
   width: 8px;
   height: 8px;
-  background: #f1f7fe;
+  background: #fff;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -4058,18 +4061,18 @@ a[class*=lightcase-icon-] {
   justify-content: flex-start;
 }
 .group--single .group__bottom--group .story__inner {
-  background: #f1f7fe;
+  background: #fff;
 }
 .group--single .group__bottom--body ul.img-stack li {
   padding-block: 0;
-  background: #f1f7fe;
+  background: #fff;
   border: none;
 }
 .group--single .group__bottom--body ul.img-stack li.bg-theme {
   background: #f24570;
 }
 .group--single .img-stack li img {
-  background: #f1f7fe;
+  background: #fff;
 }
 .group--single .story__item.style2 .story__inner:hover .story__thumb img {
   -webkit-transform: scale(1);
@@ -4268,7 +4271,7 @@ a[class*=lightcase-icon-] {
 }
 @media (min-width: 992px) {
   .log-reg .top-menu-area .backto-home {
-    color: #fff;
+    color: #000;
   }
 }
 .log-reg .top-menu-area .backto-home:hover {
@@ -4278,7 +4281,7 @@ a[class*=lightcase-icon-] {
   padding: 15px 0px 15px;
 }
 .log-reg .image {
-  background: url(../../assets/images/login/reg.jpg);
+  background: url(../../assets/images/login/reg.png);
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: cover !important;
@@ -4289,7 +4292,7 @@ a[class*=lightcase-icon-] {
   z-index: -1;
 }
 .log-reg .image.image-log {
-  background: url(../../assets/images/login/log.jpg);
+  background: url(../../assets/images/login/log.png);
 }
 @media (max-width: 991px) {
   .log-reg .image {
@@ -4424,7 +4427,7 @@ a[class*=lightcase-icon-] {
   transform: translateY(-50%);
 }
 .log-reg .log-reg-inner .main-content .or p {
-  background: #f1f7fe;
+  background: #fff;
   padding: 0px 15px;
 }
 .log-reg .log-reg-inner .main-content .or-content p {
@@ -6221,6 +6224,7 @@ a[class*=lightcase-icon-] {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  box-shadow: 7px 6px 7px grey;
 }
 .contact-item .contact-thumb {
   width: 70px;
@@ -6230,6 +6234,13 @@ a[class*=lightcase-icon-] {
   border-radius: 100%;
   background-color: #f24570;
   margin: 0 auto 30px;
+}
+.read-more-button {
+  color: blue; /* Apply the desired color */
+}
+.contact-item:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(136, 136, 136, 0.3);
 }
 .contact-item .contact-thumb:before, .contact-item .contact-thumb:after {
   opacity: 1;
@@ -6451,7 +6462,7 @@ a[class*=lightcase-icon-] {
   margin-top: 10px;
 }
 .activity__inner {
-  background: #f1f7fe;
+  background: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -6522,5 +6533,8 @@ a[class*=lightcase-icon-] {
 .terms-text ul {
   list-style-type: disc;
 }
+
+
+
 
 /*# sourceMappingURL=style.css.map */

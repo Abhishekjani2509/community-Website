@@ -112,18 +112,22 @@ const LogIn = () => {
                 </Link>
               </div>
             </div>
+
+          {/* Back to Home */}
+
             <div className="col-lg-4 col-5">
               <Link to="/" className="backto-home">
                 <i className="fas fa-chevron-left"></i> Back to Home
               </Link>
             </div>
+
           </div>
         </div>
       </div>
       <div className="container">
         <div className="row">
-          {/* <div className="image image-log"></div> */}
-          <div className="">
+          <div className="image image-log"></div>
+          <div className="col-lg-7">
             <div className="log-reg-inner">
               <div className="section-header inloginp">
                 <h2 className="title">{title}</h2>
@@ -131,7 +135,7 @@ const LogIn = () => {
               <div className="main-content inloginp">
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
-                    <label>Phone Number</label>
+                    <label>Phone Number</label><br/>
                     <input
                       type="text"
                       name="phone"
@@ -143,7 +147,7 @@ const LogIn = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label>Password</label>
+                    <label>Password</label><br/>
                     <input
                       type="password"
                       name="password"

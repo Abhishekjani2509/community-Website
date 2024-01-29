@@ -77,7 +77,7 @@ const SignUp = () => {
       alert("Registration failed. Please try again.");
     }
   };
-  const title = "Welcome to Ollya";
+  const title = "Welcome to Community Mitra";
   const desc =
     "Let's create your profile! Just fill in the fields below, and we’ll get a new account.";
   const accTitle = "Account Details";
@@ -104,8 +104,8 @@ const SignUp = () => {
       </div>
       <div className="container">
         <div className="row">
-          {/* <div className="image"></div> */}
-          <div className="">
+          <div className="image"></div>
+          <div className="col-lg-7">
             <div className="log-reg-inner">
               <div className="section-header">
                 <h2 className="title">{title} </h2>

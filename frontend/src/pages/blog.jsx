@@ -4,6 +4,8 @@ import PageHeader from "../component/layout/pageheader";
 import { Link } from "react-router-dom";
 import FooterThree from "../component/layout/footerthree";
 import HeaderOne from "../component/layout/header";
+import ReadMoreReact from 'read-more-react';
+
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -24,6 +26,8 @@ const BlogPage = () => {
     fetchBlogs();
   }, [api]);
 
+  
+
   return (
     <Fragment>
       <HeaderOne />
@@ -42,7 +46,10 @@ const BlogPage = () => {
                           <span>{val.name}{" : "}</span>
                           <span>{val.date}</span>
                         </div>
-                        <p>{val.desc}</p>
+                        {/* <p>{val.desc}</p> */}
+                        <ReadMoreReact 
+        text={val.desc}
+                      readMoreText="click here to read more"/>
                       </div>
                     </div>
                   </div>

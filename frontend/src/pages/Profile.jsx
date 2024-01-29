@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import ModalImage from "react-modal-image";
 import HeaderOne from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
 import { useAuth } from "../Context/AuthContext";
@@ -109,7 +110,7 @@ const Profile = () => {
                   <img
                     src={userData.profileimg}
                     alt="Profile Img"
-                    // style={{ width: "200px", height: "200px" }}
+                    style={{ width: "200px", height: "200px" }}
                   />
                 </div>
                 <div className="story__content px-0 pb-0">
@@ -220,16 +221,29 @@ const Profile = () => {
             {userData.images
               ? userData.images.map((image, imgIndex) => (
                   // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                  <img
+                  // <ModalImage
+                  //   key={imgIndex}
+                  //   small={image}
+                  //   large={image}
+                  //   alt={`User Image ${imgIndex + 1}`}
+                  //   style={{
+                  //         maxWidth: "150px",
+                  //         maxHeight: "150px",
+                  //         minBlockSize:"100px",
+                  //         marginRight: "10px"
+                  //       }}
+                  // />
+                  <a href={image}><img
                     key={imgIndex}
                     src={image}
                     alt={`User Image ${imgIndex + 1}`}
                     style={{
                       maxWidth: "150px",
                       maxHeight: "150px",
-                      marginRight: "5px",
+                      minBlockSize:"100px",
+                      marginRight: "10px",
                     }}
-                  />
+                  /></a>
                 ))
               : null}
             {/* </StackGrid> */}
